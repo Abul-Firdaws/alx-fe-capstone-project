@@ -1,16 +1,46 @@
-# React + Vite
+# Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive weather application built with React and Tailwind CSS that provides real-time weather information for cities worldwide. This project is part of the **ALX Frontend Web Development course**.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This Weather Dashboard allows users to search for any city and view current weather conditions including temperature, humidity, wind speed, and weather descriptions. The application demonstrates proficiency in React fundamentals, API integration, and modern frontend development practices.
 
-## React Compiler
+## Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Coming soon - will be deployed to either Netfly/Vercel
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Real-time Weather Data** - Fetches current weather from OpenWeatherMap API
+2. **City Search** - Search for any city worldwide
+3. **Weather Details Display**:
+    - Current temperature (°C)
+    - Weather condition description
+    - Humidity percentage (%)
+    - Wind speed (m/s)
+4. **Loading States** - Visual feedback while fetching data
+5. **Error Handling** - User-friendly error messages for invalid cities or network issues
+6. **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
+
+## Technologies Used
+
+### Technology         Purpose
+
+| Technology | Purpose |
+|------------|---------|
+| **React.js** | Frontend framework for building UI components |
+| **Vite** | Fast build tool and development server |
+| **Tailwind CSS** | Utility-first CSS framework for styling |
+| **OpenWeatherMap API** | Weather data provider |
+| **JavaScript (ES6+)** | Programming language |
+
+## Getting Started
+
+### Prerequisites
+
+The following were installed before the App development began:
+
+- [Node.js](https://nodejs.org/)
+- npm or yarn package manager
+- A free API key from [OpenWeatherMap](https://openweathermap.org/api)
