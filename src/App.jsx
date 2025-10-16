@@ -54,15 +54,33 @@ function App() {
       {error && <p className="error">{error}</p>}
 
       {weather && (
-        <div className="weather-info">
-          <h2>{weather.name}, {weather.sys.country}</h2>
-          <p>{weather.main.temp} °C</p>
-          <p>{weather.weather[0].description}</p>
-          <p>Humidity: {weather.main.humidity}%</p>
-          <p>Wind Speed: {weather.wind.speed} m/s</p>
-        </div>
-      )}
-    </div>
+  <div className="weather-info" style={{ 
+    textAlign: 'center', 
+    padding: '20px',
+    backgroundColor: '#f0f0f0',
+    borderRadius: '10px',
+    margin: '20px'
+  }}>
+    <h2>{weather.name}, {weather.sys.country}</h2>
+    
+    {/* Weather Icon */}
+    <img 
+      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+      alt={weather.weather[0].description}
+      style={{ width: '100px', height: '100px' }}
+    />
+    
+    <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
+      {Math.round(weather.main.temp)} °C
+    </p>
+    <p style={{ textTransform: 'capitalize' }}>
+      {weather.weather[0].description}
+    </p>
+    <p>Humidity: {weather.main.humidity}%</p>
+    <p>Wind Speed: {weather.wind.speed} m/s</p>
+  </div>
+)}
+      </div>
   );
 }
 
