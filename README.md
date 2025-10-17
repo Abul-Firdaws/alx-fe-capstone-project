@@ -40,6 +40,7 @@ Coming soon - will be deployed to either Netlify/Vercel
 ## Getting Started
 ### Prerequisites
 The following were installed before the App development began:
+
 - [Node.js](https://nodejs.org/)
 - npm or yarn package manager
 - A free API key from [OpenWeatherMap](https://openweathermap.org/api)
