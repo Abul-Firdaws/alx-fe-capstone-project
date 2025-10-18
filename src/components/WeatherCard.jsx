@@ -1,8 +1,6 @@
-import WeatherDetails from './WeatherDetails.jsx';
-
-function WeatherCard({ weather }) {
+function WeatherCard({ weather, tempUnit, convertTemp }) {
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 md:p-10">
+    <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
         
         {/* Left Column - Location & Weather Icon */}
@@ -24,18 +22,54 @@ function WeatherCard({ weather }) {
         <div className="md:col-span-1 flex flex-col items-center justify-center">
           <div className="text-center mb-6">
             <p className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              {Math.round(weather.main.temp)}°
+              {convertTemp(weather.main.temp)}°
             </p>
-            <p className="text-gray-500 text-xl md:text-2xl font-medium">Celsius</p>
           </div>
-          <p className="text-xl md:text-2xl text-gray-700 capitalize font-medium">
+          <p className="text-xl md:text-2xl text-gray-700 capitalize font-medium mb-6">
             {weather.weather[0].description}
           </p>
+          
+          {/* Feels Like */}
+          <div className="text-center">
+            <p className="text-gray-500 text-sm">
+              Feels Like {convertTemp(weather.main.feels_like)}°
+            </p>
+          </div>
         </div>
 
         {/* Right Column - Details Grid */}
         <div className="md:col-span-1 md:border-l md:border-gray-200 md:pl-8">
-          <WeatherDetails weather={weather} />
+          <h3 className="text-2xl font-bold text-gray-800 mb-6">Details</h3>
+          
+          <div className="space-y-4">
+            <div className="bg-blue-50 rounded-lg p-4">
+              <p className="text-gray-500 text-sm mb-1">Humidity</p>
+              <p className="text-3xl font-bold text-blue-600">
+                {weather.main.humidity}%
+              </p>
+            </div>
+
+            <div className="bg-blue-50 rounded-lg p-4">
+              <p className="text-gray-500 text-sm mb-1">Wind Speed</p>
+              <p className="text-3xl font-bold text-blue-600">
+                {weather.wind.speed} m/s
+              </p>
+            </div>
+
+            <div className="bg-blue-50 rounded-lg p-4">
+              <p className="text-gray-500 text-sm mb-1">Pressure</p>
+              <p className="text-3xl font-bold text-blue-600">
+                {weather.main.pressure} hPa
+              </p>
+            </div>
+
+            <div className="bg-blue-50 rounded-lg p-4">
+              <p className="text-gray-500 text-sm mb-1">Visibility</p>
+              <p className="text-3xl font-bold text-blue-600">
+                {(weather.visibility / 1000).toFixed(1)} km
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

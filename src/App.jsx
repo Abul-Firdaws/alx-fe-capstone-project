@@ -4,6 +4,7 @@ import WeatherCard from './components/WeatherCard.jsx';
 import LoadingState from './components/LoadingState.jsx';
 import ErrorMessage from './components/ErrorMessage.jsx';
 import RecentSearches from './components/RecentSearches.jsx';
+import TopControls from './components/TopControls.jsx';
 
 function App() {
   const [city, setCity] = useState('');
@@ -11,9 +12,17 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [recentSearches, setRecentSearches] = useState([]);
+  const [tempUnit, setTempUnit] = useState('C');
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
+  //convert temperature based on selected unit
+  const convertTemp = (temp) => {
+    return tempUnit === 'F' ? Math.round((temp * 9) / 5 + 32) : Math.round(temp);
+  };
+
+  //fetch weather by city name from API
   const fetchWeather = async (searchCity) => {
     const q = searchCity ?? city;
     if (!q) {
@@ -35,6 +44,7 @@ function App() {
       const data = await response.json();
       setWeather(data);
       setCity(data.name);
+      setLastUpdated(new Date());
 
       setRecentSearches((prev) => {
         const updated = [data.name, ...prev.filter((s) => s !== data.name)];
@@ -48,11 +58,12 @@ function App() {
     }
   };
 
+  //fetch weather for a specific city from recent searches
   const fetchWeatherByCity = (cityName) => {
-    // delegate to fetchWeather with the provided city
     fetchWeather(cityName);
   };
 
+  //fetch weather using browser's geolocation
   const fetchCurrentLocation = () => {
     if (navigator.geolocation) {
       setLoading(true);
@@ -72,6 +83,7 @@ function App() {
             const data = await response.json();
             setWeather(data);
             setCity(data.name);
+            setLastUpdated(new Date());
 
             setRecentSearches((prev) => {
               const updated = [data.name, ...prev.filter((s) => s !== data.name)];
@@ -93,6 +105,13 @@ function App() {
     }
   };
 
+  // Handle Refresh
+  const handleRefresh = () => {
+    if (weather) {
+      fetchWeather(weather.name);
+    } 
+  };
+
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-6xl">
@@ -102,6 +121,18 @@ function App() {
             Weather Dashboard
           </h1>
         </div>
+
+        {/* Top Controls - Timestamp, Refresh, Temp toggle */}
+        {weather && (
+          <TopControls 
+            lastUpdated={lastUpdated}
+            onRefresh={handleRefresh}
+            loading={loading}
+            weather={weather}
+            tempUnit={tempUnit}
+            onTempUnitChange={setTempUnit}
+          />
+        )}
 
         {/* Recent Searches */}
         {recentSearches.length > 0 && (
@@ -128,7 +159,13 @@ function App() {
         {error && <ErrorMessage message={error} />}
 
         {/* Weather Card */}
-        {weather && !loading && <WeatherCard weather={weather} />}
+        {weather && !loading && (
+          <WeatherCard 
+            weather={weather}
+            tempUnit={tempUnit}
+            convertTemp={convertTemp}
+        />
+        )}
       </div>
     </div>
   );
