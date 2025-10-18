@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
 import LoadingState from './components/LoadingState.jsx';
@@ -15,6 +15,14 @@ function App() {
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+  // Load last searched city from localStorage on app startup
+  useEffect(() => {
+    const lastCity = localStorage.getItem('lastSearchedCity');
+    if (lastCity) {
+      fetchWeather(lastCity);
+    }
+  }, []);
 
   //convert temperature based on selected unit
   const convertTemp = (temp) => {
@@ -44,6 +52,9 @@ function App() {
       setWeather(data);
       setCity(data.name);
       setLastUpdated(new Date());
+
+      // Save city to localStorage
+      localStorage.setItem('lastSearchedCity', data.name);
 
       setRecentSearches((prev) => {
         const updated = [data.name, ...prev.filter((s) => s !== data.name)];
@@ -83,6 +94,9 @@ function App() {
             setWeather(data);
             setCity(data.name);
             setLastUpdated(new Date());
+
+            // Save city to localStorage
+            localStorage.setItem('lastSearchedCity', data.name);
 
             setRecentSearches((prev) => {
               const updated = [data.name, ...prev.filter((s) => s !== data.name)];
@@ -155,7 +169,7 @@ function App() {
             onRefresh={handleRefresh}
             onTempUnitChange={setTempUnit}
             loading={loading}
-        />
+          />
         )}
       </div>
     </div>
