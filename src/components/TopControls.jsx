@@ -45,7 +45,7 @@ function TopControls({
             className={`text-lg font-semibold transition ${
               tempUnit === 'C'
                 ? 'text-blue-600'
-                : 'text-gray-400'
+                : 'text-gray-900'
             }`}
           >
             °C
@@ -56,7 +56,7 @@ function TopControls({
             className={`text-lg font-semibold transition ${
               tempUnit === 'F'
                 ? 'text-blue-600'
-                : 'text-gray-400'
+                : 'text-gray-900'
             }`}
           >
             °F

@@ -117,7 +117,7 @@ function App() {
       <div className="w-full max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-2 drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-950 mb-2 drop-shadow-lg">
             Weather Dashboard
           </h1>
         </div>

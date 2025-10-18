@@ -9,7 +9,7 @@ function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
   };
 
   return (
-    <div className="w-full bg-black/20 backdrop-blur-md rounded-2xl shadow-xl p-6 md:p-8 mb-8">
+    <div className="w-full bg-blue-100 rounded-2xl shadow-xl p-6 md:p-8 mb-8">
       <div className="flex flex-col md:flex-row items-stretch gap-3">
         <div className="relative flex-1">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -26,7 +26,7 @@ function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
         <button
           onClick={onSearch}
           disabled={loading}
-          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-500 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
         >
           Search
         </button>
@@ -34,7 +34,7 @@ function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
         <button
           onClick={onLocationClick}
           disabled={loading}
-          className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          className="px-8 py-3 bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold rounded-xl hover:from-blue-800 hover:to-blue-900 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
         >
           Current Location
         </button>

@@ -1,6 +1,6 @@
 function WeatherCard({ weather, tempUnit, convertTemp }) {
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-10">
+    <div className="bg-blue-100 rounded-2xl shadow-2xl p-6 md:p-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
         
         {/* Left Column - Location & Weather Icon */}
@@ -44,28 +44,28 @@ function WeatherCard({ weather, tempUnit, convertTemp }) {
           <div className="space-y-4">
             <div className="bg-blue-50 rounded-lg p-4">
               <p className="text-gray-500 text-sm mb-1">Humidity</p>
-              <p className="text-3xl font-bold text-blue-600">
+              <p className="text-2xl font-semibold text-blue-600">
                 {weather.main.humidity}%
               </p>
             </div>
 
             <div className="bg-blue-50 rounded-lg p-4">
               <p className="text-gray-500 text-sm mb-1">Wind Speed</p>
-              <p className="text-3xl font-bold text-blue-600">
+              <p className="text-2xl font-semibold text-blue-600">
                 {weather.wind.speed} m/s
               </p>
             </div>
 
             <div className="bg-blue-50 rounded-lg p-4">
               <p className="text-gray-500 text-sm mb-1">Pressure</p>
-              <p className="text-3xl font-bold text-blue-600">
+              <p className="text-2xl font-semibold text-blue-600">
                 {weather.main.pressure} hPa
               </p>
             </div>
 
             <div className="bg-blue-50 rounded-lg p-4">
               <p className="text-gray-500 text-sm mb-1">Visibility</p>
-              <p className="text-3xl font-bold text-blue-600">
+              <p className="text-2xl font-semibold text-blue-600">
                 {(weather.visibility / 1000).toFixed(1)} km
               </p>
             </div>
