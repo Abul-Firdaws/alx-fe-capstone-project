@@ -5,6 +5,66 @@ import LoadingState from './components/LoadingState.jsx';
 import ErrorMessage from './components/ErrorMessage.jsx';
 import RecentSearches from './components/RecentSearches.jsx';
 
+// Custom cities with coordinates for Savannah Region
+const CUSTOM_CITIES = {
+  'damongo': {
+    name: 'Damongo',
+    lat: 9.0849980,
+    lon: -1.8184821,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'daboya': {
+    name: 'Daboya',
+    lat: 9.530739,
+    lon: -1.382644,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'kpembi': {
+    name: 'Kpembi',
+    lat: 8.532086,
+    lon: -0.496578,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'yapei': {
+    name: 'Yapei',
+    lat: 9.148458,
+    lon: -1.151949,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'buipe': {
+    name: 'Buipe',
+    lat: 8.789266,
+    lon: -1.468189,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'sawla': {
+    name: 'Sawla',
+    lat: 9.272644,
+    lon: -2.413974,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'busunu': {
+    name: 'Busunu',
+    lat: 9.165508,
+    lon: -1.507019,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'kpalbe': {
+    name: 'Kpalbe',
+    lat: 9.1150705,
+    lon: -0.5529441,
+    country: 'GH',
+    region: 'Savannah Region'
+  }
+};
+
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
@@ -13,6 +73,7 @@ function App() {
   const [recentSearches, setRecentSearches] = useState([]);
   const [tempUnit, setTempUnit] = useState('C');
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [cityRegion, setCityRegion] = useState(null);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -41,7 +102,19 @@ function App() {
     setError(null);
 
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${API_KEY}&units=metric`;
+      const customCity = CUSTOM_CITIES[q.toLowerCase()];
+      let url;
+
+      if (customCity) {
+        // Use coordinates for custom cities
+        url = `https://api.openweathermap.org/data/2.5/weather?lat=${customCity.lat}&lon=${customCity.lon}&appid=${API_KEY}&units=metric`;
+        setCityRegion(customCity.region);
+      } else {
+        // Search by city name with Ghana country code for other cities
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${q},GH&appid=${API_KEY}&units=metric`;
+        setCityRegion(null);
+      }
+
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -49,20 +122,30 @@ function App() {
       }
 
       const data = await response.json();
+      
+      // Override city name if custom city
+      if (customCity) {
+        data.name = customCity.name;
+      }
+      
       setWeather(data);
-      setCity(data.name);
+      
+      // Set city name to custom name if available, otherwise use API response
+      const cityName = customCity ? customCity.name : data.name;
+      setCity(cityName);
       setLastUpdated(new Date());
 
       // Save city to localStorage
-      localStorage.setItem('lastSearchedCity', data.name);
+      localStorage.setItem('lastSearchedCity', cityName);
 
       setRecentSearches((prev) => {
-        const updated = [data.name, ...prev.filter((s) => s !== data.name)];
+        const updated = [cityName, ...prev.filter((s) => s !== cityName)];
         return updated.slice(0, 5);
       });
     } catch (err) {
       setError(err.message);
       setWeather(null);
+      setCityRegion(null);
     } finally {
       setLoading(false);
     }
@@ -94,6 +177,7 @@ function App() {
             setWeather(data);
             setCity(data.name);
             setLastUpdated(new Date());
+            setCityRegion(null);
 
             // Save city to localStorage
             localStorage.setItem('lastSearchedCity', data.name);
@@ -104,6 +188,7 @@ function App() {
             });
           } catch (err) {
             setError(err.message);
+            setCityRegion(null);
           } finally {
             setLoading(false);
           }
@@ -169,6 +254,7 @@ function App() {
             onRefresh={handleRefresh}
             onTempUnitChange={setTempUnit}
             loading={loading}
+            cityRegion={cityRegion}
           />
         )}
       </div>
