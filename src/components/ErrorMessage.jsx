@@ -1,6 +1,6 @@
 function ErrorMessage({ message }) {
   return (
-    <div className="bg-gradient-to-r from-red-500 to-red-500 text-white rounded-2xl shadow-2xl p-3">
+    <div className="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-2xl shadow-2xl p-3">
       <div className="flex items-center gap-3 justify-center">
         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

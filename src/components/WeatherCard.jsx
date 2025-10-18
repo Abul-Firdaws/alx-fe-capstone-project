@@ -1,4 +1,4 @@
-import { RotateCw, Clock } from 'lucide-react';
+import { RotateCw } from 'lucide-react';
 
 function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, onTempUnitChange, loading, cityRegion }) {
   const formatTime = (date) => {
@@ -6,9 +6,9 @@ function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, o
   };
 
   return (
-    <div className="bg-blue-100 rounded-2xl shadow-2xl p-6 md:p-10">
+    <div className="bg-blue-200 rounded-2xl shadow-2xl p-6 md:p-10">
       {/* Top Controls - Timestamp, Refresh, Temp Toggle */}
-      <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-blue-200">
+      <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-white-200">
         {/* Timestamp and Refresh */}
         <div className="flex items-center text-gray-700 gap-4">
           <span className="text-sm font-medium">
@@ -50,7 +50,7 @@ function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, o
               °F
             </button>
           </div>
-        </div>
+      </div>
 
       {/* Weather Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
@@ -61,13 +61,15 @@ function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, o
             {weather.name}
           </h2>
           <p className="text-gray-500 text-lg md:text-xl mb-6">
-            {weather.sys.country}
+            {cityRegion ? `${cityRegion}, ${weather.sys.country}` : weather.sys.country}
           </p>
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
-            alt={weather.weather[0].description}
-            className="w-32 h-32 md:w-40 md:h-40 drop-shadow-lg mx-auto md:mx-0"
-          />
+          <div className="flex items-center justify-center md:justify-start">
+              <img
+              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+              alt={weather.weather[0].description}
+              className="w-32 h-32 md:w-40 md:h-40 drop-shadow-lg mx-auto md:mx-0"
+            />
+          </div>
         </div>
 
         {/* Center Column - Temperature & Description */}
@@ -77,8 +79,8 @@ function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, o
               {convertTemp(weather.main.temp)}°
             </p>
           </div>
-          <p className="text-xl md:text-2xl text-gray-700 capitalize font-medium mb-6">
-            {weather.weather[0].description}
+          <p className="text-xl md:text-2xl text-gray-700 capitalize font-medium mb-6 text-center">
+              {weather.weather[0].description}
           </p>
           
           {/* Feels Like */}
