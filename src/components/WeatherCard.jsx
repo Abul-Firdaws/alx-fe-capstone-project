@@ -1,6 +1,6 @@
-import { RotateCw } from 'lucide-react';
+import { RotateCw, Clock } from 'lucide-react';
 
-function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, onTempUnitChange, loading }) {
+function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, onTempUnitChange, loading, cityRegion }) {
   const formatTime = (date) => {
     return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   };
@@ -50,7 +50,7 @@ function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, o
               °F
             </button>
           </div>
-      </div>
+        </div>
 
       {/* Weather Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
