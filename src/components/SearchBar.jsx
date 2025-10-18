@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, MapPin } from 'lucide-react';
 
 function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
   const handleKeyPress = (e) => {
@@ -26,7 +26,7 @@ function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
         <button
           onClick={onSearch}
           disabled={loading}
-          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-500 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-700 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-500 text-white font-semibold rounded-xl hover:from-blue-400 hover:to-blue-500 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
         >
           Search
         </button>
@@ -34,8 +34,9 @@ function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
         <button
           onClick={onLocationClick}
           disabled={loading}
-          className="px-8 py-3 bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold rounded-xl hover:from-blue-800 hover:to-blue-900 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          className="px-8 py-3 bg-gradient-to-r from-blue-900 to-blue-900 text-white font-semibold rounded-xl hover:from-blue-800 hover:to-blue-900 transition active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap flex items-center gap-2 justify-center"
         >
+          <MapPin size={18} />
           Current Location
         </button>
       </div>
