@@ -4,6 +4,7 @@ import WeatherCard from './components/WeatherCard.jsx';
 import LoadingState from './components/LoadingState.jsx';
 import ErrorMessage from './components/ErrorMessage.jsx';
 import RecentSearches from './components/RecentSearches.jsx';
+import ForecastCard from './components/ForecastCard.jsx';
 
 // Custom cities with coordinates for Savannah Region
 const CUSTOM_CITIES = {
@@ -65,16 +66,53 @@ const CUSTOM_CITIES = {
   }
 };
 
+// Process forecast data into daily summaries
+const processForecastData = (forecastData) => {
+  const dailyForecasts = {};
+
+  forecastData.list.forEach((item) => {
+    const date = new Date(item.dt * 1000);
+    const day = date.toDateString();
+
+    if (!dailyForecasts[day]) {
+      dailyForecasts[day] = {
+        date: date,
+        temps: [item.main.temp],
+        humidity: item.main.humidity,
+        wind_speed: item.wind.speed,
+        pressure: item.main.pressure,
+        icon: item.weather[0].icon,
+        description: item.weather[0].main.toLowerCase()
+      };
+    } else {
+      dailyForecasts[day].temps.push(item.main.temp);
+    }
+  });
+
+  // Convert to array and get first 5 days
+  return Object.values(dailyForecasts).slice(0, 5).map((day) => ({
+    date: day.date,
+    temp_max: Math.max(...day.temps),
+    temp_min: Math.min(...day.temps),
+    humidity: day.humidity,
+    wind_speed: day.wind_speed,
+    pressure: day.pressure,
+    icon: day.icon,
+    description: day.description
+  }));
+};
+
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [recentSearches, setRecentSearches] = useState([]);
   const [tempUnit, setTempUnit] = useState('C');
   const [lastUpdated, setLastUpdated] = useState(null);
   const [cityRegion, setCityRegion] = useState(null);
-
+  
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
   // Load last searched city from localStorage on app startup
@@ -142,10 +180,31 @@ function App() {
         const updated = [cityName, ...prev.filter((s) => s !== cityName)];
         return updated.slice(0, 5);
       });
+
+      // Fetch forecast data
+      try {
+        let forecastUrl;
+        if (customCity) {
+          forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${customCity.lat}&lon=${customCity.lon}&appid=${API_KEY}&units=metric`;
+        } else {
+          forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&appid=${API_KEY}&units=metric`;
+        }
+        
+        const forecastResponse = await fetch(forecastUrl);
+        if (forecastResponse.ok) {
+          const forecastData = await forecastResponse.json();
+          const processedForecast = processForecastData(forecastData);
+          setForecast(processedForecast);
+        }
+      } catch (err) {
+        console.log('Forecast data not available');
+        setForecast(null);
+      }
     } catch (err) {
       setError(err.message);
       setWeather(null);
       setCityRegion(null);
+      setForecast(null);
     } finally {
       setLoading(false);
     }
@@ -186,9 +245,24 @@ function App() {
               const updated = [data.name, ...prev.filter((s) => s !== data.name)];
               return updated.slice(0, 5);
             });
+
+            // Fetch forecast data for current location
+            try {
+              const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
+              const forecastResponse = await fetch(forecastUrl);
+              if (forecastResponse.ok) {
+                const forecastData = await forecastResponse.json();
+                const processedForecast = processForecastData(forecastData);
+                setForecast(processedForecast);
+              }
+            } catch (err) {
+              console.log('Forecast data not available');
+              setForecast(null);
+            }
           } catch (err) {
             setError(err.message);
             setCityRegion(null);
+            setForecast(null);
           } finally {
             setLoading(false);
           }
@@ -244,19 +318,30 @@ function App() {
         {/* Error Message */}
         {error && <ErrorMessage message={error} />}
 
-        {/* Weather Card */}
-        <div className="mb-8">
+        {/* Weather Card and Forecast */}
+        <div className="mb-0">
           {weather && !loading && (
-            <WeatherCard 
-              weather={weather}
-              tempUnit={tempUnit}
-              convertTemp={convertTemp}
-              lastUpdated={lastUpdated}
-              onRefresh={handleRefresh}
-              onTempUnitChange={setTempUnit}
-              loading={loading}
-              cityRegion={cityRegion}
-            />
+            <>
+              <WeatherCard 
+                weather={weather}
+                tempUnit={tempUnit}
+                convertTemp={convertTemp}
+                lastUpdated={lastUpdated}
+                onRefresh={handleRefresh}
+                onTempUnitChange={setTempUnit}
+                loading={loading}
+                cityRegion={cityRegion}
+              />
+
+              {/* Forecast */}
+              {forecast && (
+                <ForecastCard 
+                  forecast={forecast}
+                  tempUnit={tempUnit}
+                  convertTemp={convertTemp}
+                />
+              )}
+            </>
           )}
         </div>
       </div>
