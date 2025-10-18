@@ -4,7 +4,6 @@ import WeatherCard from './components/WeatherCard.jsx';
 import LoadingState from './components/LoadingState.jsx';
 import ErrorMessage from './components/ErrorMessage.jsx';
 import RecentSearches from './components/RecentSearches.jsx';
-import TopControls from './components/TopControls.jsx';
 
 function App() {
   const [city, setCity] = useState('');
@@ -122,18 +121,6 @@ function App() {
           </h1>
         </div>
 
-        {/* Top Controls - Timestamp, Refresh, Temp toggle */}
-        {weather && (
-          <TopControls 
-            lastUpdated={lastUpdated}
-            onRefresh={handleRefresh}
-            loading={loading}
-            weather={weather}
-            tempUnit={tempUnit}
-            onTempUnitChange={setTempUnit}
-          />
-        )}
-
         {/* Recent Searches */}
         {recentSearches.length > 0 && (
           <RecentSearches 
@@ -164,6 +151,10 @@ function App() {
             weather={weather}
             tempUnit={tempUnit}
             convertTemp={convertTemp}
+            lastUpdated={lastUpdated}
+            onRefresh={handleRefresh}
+            onTempUnitChange={setTempUnit}
+            loading={loading}
         />
         )}
       </div>

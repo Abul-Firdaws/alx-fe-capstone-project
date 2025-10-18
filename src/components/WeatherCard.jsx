@@ -1,6 +1,58 @@
-function WeatherCard({ weather, tempUnit, convertTemp }) {
+import { RotateCw } from 'lucide-react';
+
+function WeatherCard({ weather, tempUnit, convertTemp, lastUpdated, onRefresh, onTempUnitChange, loading }) {
+  const formatTime = (date) => {
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  };
+
   return (
     <div className="bg-blue-100 rounded-2xl shadow-2xl p-6 md:p-10">
+      {/* Top Controls - Timestamp, Refresh, Temp Toggle */}
+      <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-blue-200">
+        {/* Timestamp and Refresh */}
+        <div className="flex items-center text-gray-700 gap-4">
+          <span className="text-sm font-medium">
+            {lastUpdated ? formatTime(lastUpdated) : 'Loading...'}
+          </span>
+          
+          {/* Refresh Button */}
+          <button
+            onClick={onRefresh}
+            disabled={loading}
+            className="text-gray-700 hover:text-blue-600 transition disabled:text-gray-400 disabled:cursor-not-allowed"
+            title="Refresh weather"
+          >
+            <RotateCw size={20} />
+          </button>
+        </div>
+
+        {/* Temperature Toggle */}
+        <div className="flex items-center gap-3">
+            <button
+              onClick={() => onTempUnitChange('C')}
+              className={`text-lg font-semibold transition ${
+                tempUnit === 'C'
+                  ? 'text-blue-600'
+                  : 'text-slate-900'
+              }`}
+            >
+              °C
+            </button>
+            <span className="text-gray-400">|</span>
+            <button
+              onClick={() => onTempUnitChange('F')}
+              className={`text-lg font-semibold transition ${
+                tempUnit === 'F'
+                  ? 'text-blue-600'
+                  : 'text-slate-900'
+              }`}
+            >
+              °F
+            </button>
+          </div>
+      </div>
+
+      {/* Weather Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
         
         {/* Left Column - Location & Weather Icon */}
