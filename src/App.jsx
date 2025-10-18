@@ -211,11 +211,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4 sm:p-6">
-      <div className="w-full max-w-6xl">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center p-4 sm:p-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-950 mb-2 drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-blue-900 mb-2 drop-shadow-lg">
             Weather Dashboard
           </h1>
         </div>
@@ -245,18 +245,20 @@ function App() {
         {error && <ErrorMessage message={error} />}
 
         {/* Weather Card */}
-        {weather && !loading && (
-          <WeatherCard 
-            weather={weather}
-            tempUnit={tempUnit}
-            convertTemp={convertTemp}
-            lastUpdated={lastUpdated}
-            onRefresh={handleRefresh}
-            onTempUnitChange={setTempUnit}
-            loading={loading}
-            cityRegion={cityRegion}
-          />
-        )}
+        <div className="mb-8">
+          {weather && !loading && (
+            <WeatherCard 
+              weather={weather}
+              tempUnit={tempUnit}
+              convertTemp={convertTemp}
+              lastUpdated={lastUpdated}
+              onRefresh={handleRefresh}
+              onTempUnitChange={setTempUnit}
+              loading={loading}
+              cityRegion={cityRegion}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

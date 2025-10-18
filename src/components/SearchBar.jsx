@@ -9,7 +9,7 @@ function SearchBar({ city, onCityChange, onSearch, onLocationClick, loading }) {
   };
 
   return (
-    <div className="w-full bg-blue-100 rounded-2xl shadow-xl p-6 md:p-8 mb-8">
+    <div className="w-full bg-blue-200 rounded-2xl shadow-xl p-6 md:p-8 mb-8">
       <div className="flex flex-col md:flex-row items-stretch gap-3">
         <div className="relative flex-1">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />

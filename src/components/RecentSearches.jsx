@@ -1,7 +1,6 @@
 function RecentSearches({ searches, onSearchClick, loading }) {
   return (
     <div className="mb-6">
-      <div className="bg-white rounded-2xl p-6">
         <h3 className="text-gray-800 font-semibold mb-4 text-lg">Recent Searches</h3>
         <div className="flex flex-wrap gap-3">
           {searches.map((city, index) => (
@@ -16,7 +15,6 @@ function RecentSearches({ searches, onSearchClick, loading }) {
           ))}
         </div>
       </div>
-    </div>
   );
 }
 
