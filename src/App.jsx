@@ -3,17 +3,20 @@ import SearchBar from './components/SearchBar.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
 import LoadingState from './components/LoadingState.jsx';
 import ErrorMessage from './components/ErrorMessage.jsx';
+import RecentSearches from './components/RecentSearches.jsx';
 
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [recentSearches, setRecentSearches] = useState([]);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-  const fetchWeather = async () => {
-    if (!city) {
+  const fetchWeather = async (searchCity) => {
+    const q = searchCity ?? city;
+    if (!q) {
       setError('Please enter a city name.');
       return;
     }
@@ -22,7 +25,7 @@ function App() {
     setError(null);
 
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${API_KEY}&units=metric`;
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -31,12 +34,23 @@ function App() {
 
       const data = await response.json();
       setWeather(data);
+      setCity(data.name);
+
+      setRecentSearches((prev) => {
+        const updated = [data.name, ...prev.filter((s) => s !== data.name)];
+        return updated.slice(0, 5);
+      });
     } catch (err) {
       setError(err.message);
       setWeather(null);
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchWeatherByCity = (cityName) => {
+    // delegate to fetchWeather with the provided city
+    fetchWeather(cityName);
   };
 
   const fetchCurrentLocation = () => {
@@ -58,6 +72,11 @@ function App() {
             const data = await response.json();
             setWeather(data);
             setCity(data.name);
+
+            setRecentSearches((prev) => {
+              const updated = [data.name, ...prev.filter((s) => s !== data.name)];
+              return updated.slice(0, 5);
+            });
           } catch (err) {
             setError(err.message);
           } finally {
@@ -84,11 +103,20 @@ function App() {
           </h1>
         </div>
 
+        {/* Recent Searches */}
+        {recentSearches.length > 0 && (
+          <RecentSearches 
+            searches={recentSearches}
+            onSearchClick={fetchWeatherByCity}
+            loading={loading}
+          />
+        )}
+
         {/* Search Bar */}
         <SearchBar
           city={city}
           onCityChange={setCity}
-          onSearch={fetchWeather}
+          onSearch={() => fetchWeather()}
           onLocationClick={fetchCurrentLocation}
           loading={loading}
         />
