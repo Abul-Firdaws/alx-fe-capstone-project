@@ -9,57 +9,57 @@ import RecentSearches from './components/RecentSearches.jsx';
 const CUSTOM_CITIES = {
   'damongo': {
     name: 'Damongo',
-    lat: 9.0849980,
-    lon: -1.8184821,
+    lat: 9.0830,
+    lon: -1.8170,
     country: 'GH',
     region: 'Savannah Region'
   },
   'daboya': {
     name: 'Daboya',
-    lat: 9.530739,
-    lon: -1.382644,
+    lat: 9.5300,
+    lon: -1.3820,
     country: 'GH',
     region: 'Savannah Region'
   },
   'kpembi': {
     name: 'Kpembi',
-    lat: 8.532086,
-    lon: -0.496578,
+    lat: 8.5320,
+    lon: -0.4950,
     country: 'GH',
     region: 'Savannah Region'
   },
   'yapei': {
     name: 'Yapei',
-    lat: 9.148458,
-    lon: -1.151949,
+    lat: 9.1670,
+    lon: -1.1670,
     country: 'GH',
     region: 'Savannah Region'
   },
   'buipe': {
     name: 'Buipe',
-    lat: 8.789266,
-    lon: -1.468189,
+    lat: 8.7830,
+    lon: -1.5330,
     country: 'GH',
     region: 'Savannah Region'
   },
   'sawla': {
     name: 'Sawla',
-    lat: 9.272644,
-    lon: -2.413974,
+    lat: 9.4170,
+    lon: -2.3330,
     country: 'GH',
     region: 'Savannah Region'
   },
   'busunu': {
     name: 'Busunu',
-    lat: 9.165508,
-    lon: -1.507019,
+    lat: 9.2330,
+    lon: -1.9170,
     country: 'GH',
     region: 'Savannah Region'
   },
   'kpalbe': {
     name: 'Kpalbe',
-    lat: 9.1150705,
-    lon: -0.5529441,
+    lat: 8.6830,
+    lon: -0.9670,
     country: 'GH',
     region: 'Savannah Region'
   }
@@ -110,8 +110,8 @@ function App() {
         url = `https://api.openweathermap.org/data/2.5/weather?lat=${customCity.lat}&lon=${customCity.lon}&appid=${API_KEY}&units=metric`;
         setCityRegion(customCity.region);
       } else {
-        // Search by city name with Ghana country code for other cities
-        url = `https://api.openweathermap.org/data/2.5/weather?q=${q},GH&appid=${API_KEY}&units=metric`;
+        // Search by city name for other cities
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${API_KEY}&units=metric`;
         setCityRegion(null);
       }
 
