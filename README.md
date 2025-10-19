@@ -29,11 +29,11 @@ Built with a **component-based React architecture**, it emphasizes clean UI, acc
 ### Core Functionality
 - **Global City Search** — Fetch weather for any city worldwide  
 - **Custom City Integration** — Supports 8 Savannah Region towns (Damongo, Daboya, Kpembi, Yapei, Buipe, Sawla, Busunu, Kpalbe) with coordinate-based accuracy  
-- **Current Location Button** — Instantly fetch weather using the browser’s Geolocation API  
+- **Current Location Button** — Instantly fetch weather using the browser's Geolocation API  
 - **Real-time Data Fetching** — Retrieves current weather and 5-day forecast simultaneously  
 - **Comprehensive Weather Details:**  
   - Temperature (°C/°F)  
-  - “Feels like” temperature  
+  - "Feels like" temperature  
   - Humidity, Wind Speed, Pressure  
   - Weather description and visibility  
 
@@ -77,7 +77,7 @@ Built with a **component-based React architecture**, it emphasizes clean UI, acc
 | **Tailwind CSS** | Utility-first responsive styling |
 | **Lucide React** | Modern icon set for consistent UI visuals |
 | **OpenWeatherMap API** | Real-time weather and forecast data |
-| **Geolocation API** | Detects user’s current location |
+| **Geolocation API** | Detects user's current location |
 | **JavaScript (ES6+)** | Core programming logic and interactivity |
 
 ---
@@ -93,48 +93,56 @@ Ensure the following are installed:
 ### Installation
 
 Clone this repository:
+
 ```bash
 git clone https://github.com/Abul-Firdaws/alx-fe-capstone-project.git
 cd alx-fe-capstone-project
+```
 
 Install dependencies:
 
+```bash
 npm install
+```
 
+Create a `.env.local` file in the project root:
 
-Create a .env.local file in the project root:
-
+```
 VITE_WEATHER_API_KEY=your_api_key_here
-
+```
 
 Start the development server:
 
+```bash
 npm run dev
-
+```
 
 Then open your browser and visit the local URL provided.
 
-Feature Deep Dive
-Custom City Support
+---
 
-For smaller Savannah Region towns not found in OpenWeatherMap’s database, the app uses coordinate-based data fetching for:
+## Feature Deep Dive
+
+### Custom City Support
+
+For smaller Savannah Region towns not found in OpenWeatherMap's database, the app uses coordinate-based data fetching for:
 Damongo, Daboya, Kpembi, Yapei, Buipe, Sawla, Busunu, and Kpalbe.
 
 Each town displays its exact name and region for accuracy.
 
-Temperature Unit Toggle
+### Temperature Unit Toggle
 
 Switch between Celsius (°C) and Fahrenheit (°F) dynamically
 
 All displayed temperatures update instantly when toggled
 
-Refresh & Timestamp
+### Refresh & Timestamp
 
 The refresh button re-fetches data and updates the timestamp
 
 Ensures users always see the latest information
 
-Theme Toggle
+### Theme Toggle
 
 Users can toggle between Light and Dark modes
 
@@ -146,19 +154,18 @@ Fixed button placement (top-right corner)
 
 Fully responsive across all devices
 
-5-Day Forecast
+### 5-Day Forecast
 
 Summarizes 3-hourly API data into daily stats:
 
-Date
+- Date
+- Weather icon
+- High/low temperature
+- Humidity, wind, and pressure
 
-Weather icon
+---
 
-High/low temperature
-
-Humidity, wind, and pressure
-
-Testing Summary
+## Testing Summary
 
 Verified temperature conversion, refresh updates, and theme switching
 
@@ -170,7 +177,9 @@ Verified all transitions and states render correctly in both themes
 
 Confirmed forecast data accuracy
 
-Git Workflow
+---
+
+## Git Workflow
 
 Each feature developed in its own branch (e.g., feature/dark-light-theme)
 
@@ -180,28 +189,33 @@ Merges approved into the main branch
 
 Branches cleaned up post-merge
 
-Project Status
-Area	Status
-Core Weather Features	Completed
-Forecast System	Completed
-Dark/Light Theme	Completed
-Responsive Layout	Completed
-LocalStorage Persistence	Works for recent searches
-Enhancements	In progress
-Future Enhancements
+---
 
-Persistent theme preference using localStorage
+## Project Status
 
-Weather-based dynamic backgrounds
+| Area | Status |
+|------|--------|
+| Core Weather Features | Completed |
+| Forecast System | Completed |
+| Dark/Light Theme | Completed |
+| Responsive Layout | Completed |
+| LocalStorage Persistence | Works for recent searches |
+| Enhancements | In progress |
 
-Alert and notification system (weather warnings)
+---
 
-Offline caching for recent searches
+## Future Enhancements
 
-Map visualization for searched cities
+- Persistent theme preference using localStorage
+- Weather-based dynamic backgrounds
+- Alert and notification system (weather warnings)
+- Offline caching for recent searches
+- Map visualization for searched cities
 
-Repository
+---
 
-GitHub: Abul-Firdaws / alx-fe-capstone-project
+## Repository
 
-Live Site: personal-weather-hub.vercel.app
+**GitHub:** [Abul-Firdaws / alx-fe-capstone-project](https://github.com/Abul-Firdaws/alx-fe-capstone-project)
+
+**Live Site:** [personal-weather-hub.vercel.app](https://personal-weather-hub.vercel.app)
