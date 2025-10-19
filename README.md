@@ -1,105 +1,207 @@
 # Weather Dashboard
-A responsive weather application built with React and Tailwind CSS that provides real-time weather information for cities worldwide. This project is part of the **ALX Frontend Web Development course**.
+
+A responsive, theme-adaptive weather application built with **React** and **Tailwind CSS**, providing real-time weather information for cities worldwide.  
+This project forms part of the **ALX Frontend Web Development** course and demonstrates advanced component architecture, responsive UI design, and API integration best practices.
+
+---
 
 ## Project Overview
-This Weather Dashboard allows users to search for any city or use their current location to view real-time weather conditions. The application displays comprehensive weather information including temperature, "feels like" temperature, humidity, wind speed, pressure, and weather descriptions. The dashboard features a modern, fully responsive design that adapts seamlessly across all device sizes with a component-based architecture for maintainability and reusability.
+
+The **Weather Dashboard** allows users to:
+
+- Search for any city globally, including custom Savannah Region towns in Ghana  
+- Fetch current weather and 5-day forecasts using the **OpenWeatherMap API**  
+- View detailed weather metrics like temperature, humidity, wind, and pressure  
+- Toggle between **Celsius/Fahrenheit**, **Dark/Light** themes, and refresh data instantly  
+
+Built with a **component-based React architecture**, it emphasizes clean UI, accessibility, and maintainability.
+
+---
 
 ## Live Demo
-Coming soon - will be deployed to either Netlify/Vercel
 
-## Features
-1. **Real-time Weather Data** - Fetches current weather from OpenWeatherMap API
-2. **City Search** - Search for any city worldwide with instant results
-3. **Current Location** - Automatically fetch weather for your current location using geolocation
-4. **Recent Searches** - Quick access to previously searched cities with styled pill buttons
-5. **Comprehensive Weather Details**:
-    - Current temperature (°C)
-    - "Feels like" temperature
-    - Weather condition description
-    - Humidity percentage (%)
-    - Wind speed (m/s)
-    - Atmospheric pressure (hPa)
-    - Visibility distance (km)
-6. **Loading States** - Visual feedback with animated spinner while fetching data
-7. **Error Handling** - User-friendly error messages for invalid cities, network issues, or location access problems
-8. **Fully Responsive Design**:
-    - Mobile: Portrait layout with stacked elements
-    - Tablet & Desktop: Landscape layout with expanded 3-column grid for optimal screen utilization
-    - Adaptive typography and spacing across all breakpoints
-9. **Modern UI/UX** - Clean, intuitive interface with gradient buttons, smooth transitions, and blue-bordered recent search pills
-10. **Component-Based Architecture** - Reusable components (SearchBar, WeatherCard, RecentSearches, ErrorMessage, LoadingState) for clean, maintainable code
+**[View Live Site →](https://personal-weather-hub.vercel.app/)**
 
-## Component Structure
-- **App.jsx** - Main application component managing state and API calls
-- **SearchBar.jsx** - Search input with city search and geolocation buttons
-- **WeatherCard.jsx** - Displays main weather information with 3-column layout
-- **WeatherDetails.jsx** - Displays detailed weather metrics (humidity, wind, pressure, etc.)
-- **RecentSearches.jsx** - Shows previously searched cities as clickable buttons
-- **LoadingState.jsx** - Loading spinner animation
-- **ErrorMessage.jsx** - Error notification display
+---
+
+## Key Features
+
+### Core Functionality
+- **Global City Search** — Fetch weather for any city worldwide  
+- **Custom City Integration** — Supports 8 Savannah Region towns (Damongo, Daboya, Kpembi, Yapei, Buipe, Sawla, Busunu, Kpalbe) with coordinate-based accuracy  
+- **Current Location Button** — Instantly fetch weather using the browser’s Geolocation API  
+- **Real-time Data Fetching** — Retrieves current weather and 5-day forecast simultaneously  
+- **Comprehensive Weather Details:**  
+  - Temperature (°C/°F)  
+  - “Feels like” temperature  
+  - Humidity, Wind Speed, Pressure  
+  - Weather description and visibility  
+
+### Interface & Usability
+- **Recent Searches** — Displays last five searched cities as clickable, blue-bordered pill buttons  
+- **Dark/Light Theme Toggle** — Switch seamlessly between light (blue-based) and dark (gray-based) themes  
+- **Refresh Button** — Re-fetches latest weather data with updated timestamp  
+- **Last Updated Time** — Displays time of last successful fetch in `HH:MM` format  
+- **Responsive Layout:**  
+  - Mobile: Stacked layout for easy reading  
+  - Tablet/Desktop: 3-column layout for detailed view  
+- **Modern, Minimal UI/UX** — Smooth transitions, gradient buttons, and balanced spacing  
+
+### Error Handling & Loading States
+- Animated spinner while fetching data  
+- Friendly error messages for invalid cities, network issues, or denied location access  
+
+---
+
+## Component Architecture
+
+| Component | Description |
+|------------|--------------|
+| **App.jsx** | Main state manager and API handler (weather, forecast, theme) |
+| **SearchBar.jsx** | Input field with search and geolocation buttons |
+| **WeatherCard.jsx** | Displays current weather, timestamp, refresh, and temperature toggle |
+| **WeatherDetails.jsx** | Shows detailed weather stats (humidity, wind, pressure) |
+| **ForecastCard.jsx** | Displays 5-day forecast in responsive grid |
+| **RecentSearches.jsx** | Renders recent cities as interactive buttons |
+| **LoadingState.jsx** | Animated spinner for fetch loading |
+| **ErrorMessage.jsx** | Displays user-friendly error feedback |
+| **ThemeToggle.jsx** | Dark/Light theme toggle component |
+
+---
 
 ## Technologies Used
+
 | Technology | Purpose |
-|------------|---------|
-| **React.js** | Frontend framework for building UI components |
-| **Vite** | Fast build tool and development server |
-| **Tailwind CSS** | Utility-first CSS framework for responsive styling |
-| **Lucide React** | Icon library for UI elements |
-| **OpenWeatherMap API** | Real-time weather data provider |
-| **JavaScript (ES6+)** | Programming language |
-| **Geolocation API** | Browser API for current location detection |
+|-------------|----------|
+| **React.js (Vite)** | Component-based UI and fast development environment |
+| **Tailwind CSS** | Utility-first responsive styling |
+| **Lucide React** | Modern icon set for consistent UI visuals |
+| **OpenWeatherMap API** | Real-time weather and forecast data |
+| **Geolocation API** | Detects user’s current location |
+| **JavaScript (ES6+)** | Core programming logic and interactivity |
+
+---
 
 ## Getting Started
+
 ### Prerequisites
-The following were installed before the App development began:
-- [Node.js](https://nodejs.org/)
-- npm or yarn package manager
-- A free API key from [OpenWeatherMap](https://openweathermap.org/api)
+Ensure the following are installed:
+- Node.js  
+- npm or yarn  
+- Free API key from [OpenWeatherMap](https://openweathermap.org/)
 
 ### Installation
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Create a `.env.local` file and add your API key:
-   ```
-   VITE_WEATHER_API_KEY=your_api_key_here
-   ```
-4. Run the development server: `npm run dev`
-5. Open your browser and navigate to the local server URL
 
-## Key Features Explained
-### Recent Searches
-Users can quickly access their last 5 searched cities through blue-bordered pill buttons. Clicking any button instantly fetches that city's weather without re-typing.
+Clone this repository:
+```bash
+git clone https://github.com/Abul-Firdaws/alx-fe-capstone-project.git
+cd alx-fe-capstone-project
 
-### Responsive Layout
-The dashboard automatically adjusts its layout based on screen size:
-- On mobile, content stacks vertically
-- On desktop, the weather card uses a 3-column layout (location/icon, temperature, details)
+Install dependencies:
 
-### Error Handling
-The app gracefully handles various error scenarios:
-- Invalid city names
-- Network connectivity issues
-- Geolocation permission denials
-- API failures
+npm install
 
-## Future Enhancements
-- Temperature unit toggle (°C/°F conversion)
-- 5-day weather forecast display
-- Search history with localStorage persistence
-- Dynamic background based on weather conditions
-- Weather alerts and warnings
 
-## Git Workflow
-This project follows a feature-branch workflow:
-- Features are developed on feature branches (e.g., `feature/component-refactoring`)
-- Pull Requests are used for code review
-- Branches are merged to `main` after approval
-- Local branches are cleaned up after merging
+Create a .env.local file in the project root:
 
-## Project Status
-Completed: Component-based architecture, city search, geolocation, recent searches feature, responsive design
-In Progress: Additional features and enhancements
-Status: Core functionality working, Component structure implemented, Ready for feature expansion
+VITE_WEATHER_API_KEY=your_api_key_here
 
-## Repository
-[GitHub Repository](https://github.com/Abul-Firdaws/alx-fe-capstone-project)
+
+Start the development server:
+
+npm run dev
+
+
+Then open your browser and visit the local URL provided.
+
+Feature Deep Dive
+Custom City Support
+
+For smaller Savannah Region towns not found in OpenWeatherMap’s database, the app uses coordinate-based data fetching for:
+Damongo, Daboya, Kpembi, Yapei, Buipe, Sawla, Busunu, and Kpalbe.
+
+Each town displays its exact name and region for accuracy.
+
+Temperature Unit Toggle
+
+Switch between Celsius (°C) and Fahrenheit (°F) dynamically
+
+All displayed temperatures update instantly when toggled
+
+Refresh & Timestamp
+
+The refresh button re-fetches data and updates the timestamp
+
+Ensures users always see the latest information
+
+Theme Toggle
+
+Users can toggle between Light and Dark modes
+
+Smooth 300ms transitions between themes
+
+Tailwind utility classes for styling consistency
+
+Fixed button placement (top-right corner)
+
+Fully responsive across all devices
+
+5-Day Forecast
+
+Summarizes 3-hourly API data into daily stats:
+
+Date
+
+Weather icon
+
+High/low temperature
+
+Humidity, wind, and pressure
+
+Testing Summary
+
+Verified temperature conversion, refresh updates, and theme switching
+
+Confirmed custom towns and international cities both fetch correctly
+
+Tested recent searches, localStorage persistence, and mobile responsiveness
+
+Verified all transitions and states render correctly in both themes
+
+Confirmed forecast data accuracy
+
+Git Workflow
+
+Each feature developed in its own branch (e.g., feature/dark-light-theme)
+
+Code reviewed via Pull Requests
+
+Merges approved into the main branch
+
+Branches cleaned up post-merge
+
+Project Status
+Area	Status
+Core Weather Features	Completed
+Forecast System	Completed
+Dark/Light Theme	Completed
+Responsive Layout	Completed
+LocalStorage Persistence	Works for recent searches
+Enhancements	In progress
+Future Enhancements
+
+Persistent theme preference using localStorage
+
+Weather-based dynamic backgrounds
+
+Alert and notification system (weather warnings)
+
+Offline caching for recent searches
+
+Map visualization for searched cities
+
+Repository
+
+GitHub: Abul-Firdaws / alx-fe-capstone-project
+
+Live Site: personal-weather-hub.vercel.app
