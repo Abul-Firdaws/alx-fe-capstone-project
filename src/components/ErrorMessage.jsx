@@ -1,6 +1,10 @@
-function ErrorMessage({ message }) {
+function ErrorMessage({ message, isDark }) {
   return (
-    <div className="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-2xl shadow-2xl p-3">
+    <div className={`${
+      isDark 
+        ? 'bg-gradient-to-r from-red-600 to-red-700' 
+        : 'bg-gradient-to-r from-red-500 to-red-600'
+    } text-white rounded-2xl shadow-2xl p-3 transition-colors duration-300`}>
       <div className="flex items-center gap-3 justify-center">
         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

@@ -5,66 +5,74 @@ import LoadingState from './components/LoadingState.jsx';
 import ErrorMessage from './components/ErrorMessage.jsx';
 import RecentSearches from './components/RecentSearches.jsx';
 import ForecastCard from './components/ForecastCard.jsx';
+import ThemeToggle from './components/ThemeToggle.jsx';
 
 // Custom cities with coordinates for Savannah Region
 const CUSTOM_CITIES = {
   'damongo': {
     name: 'Damongo',
-    lat: 9.0830,
-    lon: -1.8170,
+    lat: 9.0849980,
+    lon: -1.8184821,
+    country: 'GH',
+    region: 'Savannah Region'
+  },
+  'damango': {
+    name: 'Damango',
+    lat: 9.0849980,
+    lon: -1.8184821,
     country: 'GH',
     region: 'Savannah Region'
   },
   'daboya': {
     name: 'Daboya',
-    lat: 9.5300,
-    lon: -1.3820,
+    lat: 9.530739,
+    lon: -1.382644,
     country: 'GH',
     region: 'Savannah Region'
   },
   'kpembi': {
     name: 'Kpembi',
-    lat: 8.5320,
-    lon: -0.4950,
+    lat: 8.532086,
+    lon: -0.496578,
     country: 'GH',
     region: 'Savannah Region'
   },
   'yapei': {
     name: 'Yapei',
-    lat: 9.1670,
-    lon: -1.1670,
+    lat: 9.148458,
+    lon: -1.151949,
     country: 'GH',
     region: 'Savannah Region'
   },
   'buipe': {
     name: 'Buipe',
-    lat: 8.7830,
-    lon: -1.5330,
+    lat: 8.789266,
+    lon: -1.468189,
     country: 'GH',
     region: 'Savannah Region'
   },
   'sawla': {
     name: 'Sawla',
-    lat: 9.4170,
-    lon: -2.3330,
+    lat: 9.272644,
+    lon: -2.413974,
     country: 'GH',
     region: 'Savannah Region'
   },
   'busunu': {
     name: 'Busunu',
-    lat: 9.2330,
-    lon: -1.9170,
+    lat: 9.165508,
+    lon: -1.507019,
     country: 'GH',
     region: 'Savannah Region'
   },
   'kpalbe': {
     name: 'Kpalbe',
-    lat: 8.6830,
-    lon: -0.9670,
+    lat: 9.1150705,
+    lon: -0.5529441,
     country: 'GH',
     region: 'Savannah Region'
   }
-};
+}
 
 // Process forecast data into daily summaries
 const processForecastData = (forecastData) => {
@@ -112,6 +120,7 @@ function App() {
   const [tempUnit, setTempUnit] = useState('C');
   const [lastUpdated, setLastUpdated] = useState(null);
   const [cityRegion, setCityRegion] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -156,7 +165,7 @@ function App() {
       const response = await fetch(url);
 
       if (!response.ok) {
-        throw new Error('City not found');
+        throw new Error('City not found. Please check spelling and try again.');
       }
 
       const data = await response.json();
@@ -284,12 +293,27 @@ function App() {
     } 
   };
 
+  // Toggle theme
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center p-4 sm:p-6">
+    <div className={`min-h-screen ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
+        : 'bg-gradient-to-br from-blue-50 via-white to-blue-100'
+    } flex items-center justify-center p-4 sm:p-6 transition-colors duration-300`}>
+      
+      {/* Theme Toggle Button */}
+      <ThemeToggle isDark={isDarkMode} onToggle={toggleTheme} />
+
       <div className="w-full px-4 sm:px-8 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-blue-900 mb-2 drop-shadow-lg">
+        <div className="text-center mb-8 md:mb-12 mt-6 md:mt-10 px-16 sm:px-20">
+          <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold ${
+            isDarkMode ? 'text-blue-400' : 'text-blue-900'
+          } mb-2 drop-shadow-lg transition-colors duration-300`}>
             Weather Dashboard
           </h1>
         </div>
@@ -300,6 +324,7 @@ function App() {
             searches={recentSearches}
             onSearchClick={fetchWeatherByCity}
             loading={loading}
+            isDark={isDarkMode}
           />
         )}
 
@@ -310,13 +335,14 @@ function App() {
           onSearch={() => fetchWeather()}
           onLocationClick={fetchCurrentLocation}
           loading={loading}
+          isDark={isDarkMode}
         />
 
         {/* Loading State */}
-        {loading && <LoadingState />}
+        {loading && <LoadingState isDark={isDarkMode} />}
 
         {/* Error Message */}
-        {error && <ErrorMessage message={error} />}
+        {error && <ErrorMessage message={error} isDark={isDarkMode} />}
 
         {/* Weather Card and Forecast */}
         <div className="mb-0">
@@ -331,6 +357,7 @@ function App() {
                 onTempUnitChange={setTempUnit}
                 loading={loading}
                 cityRegion={cityRegion}
+                isDark={isDarkMode}
               />
 
               {/* Forecast */}
@@ -339,6 +366,7 @@ function App() {
                   forecast={forecast}
                   tempUnit={tempUnit}
                   convertTemp={convertTemp}
+                  isDark={isDarkMode}
                 />
               )}
             </>
